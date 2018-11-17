@@ -19,10 +19,10 @@ services:
       - /app/node_modules #do not try overwrite it
       - ./server:/app
     environment:
-      - PGUSER=perry
+      - PGUSER=postgres
       - PGHOST=postgres
-      - PGDATABASE=UserAuth
-      - PGPASSWORD=Spf13609629560
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres
       - PGPORT=5432
     
 

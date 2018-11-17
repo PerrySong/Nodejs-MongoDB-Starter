@@ -11,6 +11,16 @@ const linkedinConfig = require('../config/linkedin.json')
 
 
 createAccountHelper = (req, res) => {
+    console.log({
+        id: uniqid("user-"),
+        email: req.body.email,
+        username: req.body.username,
+        password: md5(req.body.password),
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        github: req.body.github,
+        linkedin: req.body.linkedin,
+    })
     return User
         .create({
             id: uniqid("user-"),

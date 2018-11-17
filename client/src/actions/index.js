@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR } from './types';
 import jsxToString from 'jsx-to-string';
-const root_Url = "http://api";
+const root_Url = "/api";
+
 export const USER_LIST = 'user_list';
 export const USER = 'user';
 
@@ -10,7 +11,13 @@ export const USER = 'user';
  */
 export function getAllUsers() {
     const request = axios.get(`${root_Url}/userlist`)
-
+    .then(res => {
+        console.log(res)
+        return {
+            type: USER_LIST,
+            payload: request
+        }
+    })
     return {
         type: USER_LIST,
         payload: request
