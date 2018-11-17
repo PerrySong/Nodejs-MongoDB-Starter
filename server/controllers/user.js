@@ -24,7 +24,7 @@ createAccountHelper = (req, res) => {
         })
         .then(user => {
             const jwttoken = jwt.sign({
-                id: user.id,
+                userId: user.id,
                 email: req.body.email,
                 username: req.body.username,
                 password: md5(req.body.password),
@@ -52,7 +52,7 @@ createAccountHelper = (req, res) => {
         else if (user.password === md5(req.body.password)) {
             console.log("user = " + user)
             const jwttoken = jwt.sign({
-                id: user.id,
+                userId: user.id,
                 username: user.username,
                 email: user.email,
                 password: user.password,
@@ -120,7 +120,7 @@ module.exports = {
             .then(user => {
                 return res.status(200).send({
                     username: user.username,
-                    id: user.id,
+                    userId: user.id,
                     github: user.github
                 })
             })
@@ -145,7 +145,7 @@ module.exports = {
                     console.log(response)
                     return res.status(200).send({
                         username: user.username,
-                        id: user.id,
+                        userId: user.id,
                         repos: response.data
                     })
                 }) 
@@ -187,6 +187,7 @@ module.exports = {
         .catch(err => {
             res.status(400).send({err: err})
         })
-    }
+    },
+
 
 }
