@@ -30,14 +30,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      github: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      linkedin: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -45,7 +37,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

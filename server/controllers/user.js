@@ -1,4 +1,5 @@
-const User = require('../models').User;
+const User = require('../models').User,
+      Github = require('../models').Github;
 const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
 const uniqid = require('uniqid');
@@ -11,26 +12,12 @@ const linkedinConfig = require('../config/linkedin.json')
 
 
 createAccountHelper = (req, res) => {
-    console.log({
-        id: uniqid("user-"),
-        email: req.body.email,
-        username: req.body.username,
-        password: md5(req.body.password),
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        github: req.body.github,
-        linkedin: req.body.linkedin,
-    })
     return User
         .create({
             id: uniqid("user-"),
             email: req.body.email,
             username: req.body.username,
             password: md5(req.body.password),
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            github: req.body.github,
-            linkedin: req.body.linkedin,
         })
         .then(user => {
             const jwttoken = jwt.sign({
@@ -41,10 +28,9 @@ createAccountHelper = (req, res) => {
             }, secret, { expiresIn: '24h' });
             res.status(201).send({
                 user: {
+                    userId: user.id,
                     email: req.body.email,
                     username: req.body.username,
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,
                     github: req.body.github,
                     linkedin: req.body.linkedin, 
                 },
@@ -66,17 +52,12 @@ createAccountHelper = (req, res) => {
                 username: user.username,
                 email: user.email,
                 password: user.password,
-                administrator: user.administrator,
-
             }, secret, { expiresIn: '24h' });
             return res.status(200).send({
                 user: {
+                    userId: user.id,
                     email: user.email,
                     username: user.username,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
-                    github: user.github,
-                    linkedin: user.linkedin, 
                 },
                 jwttoken: jwttoken
             });
@@ -199,5 +180,16 @@ module.exports = {
         })
     },
 
+    getGithub (req, res) {
+        const userId = req.query.userId;
+        Github.find({where : {userId: userId}})
+        .then( github => {
+            console.log("github = " + github)
+            res.status(200).send(github)
+        })
+        .catch(err => {
+            res.status(400).send({err: err})
+        })
+    }
 
 }
