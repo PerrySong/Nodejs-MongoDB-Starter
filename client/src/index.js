@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 
 import reducers from './reducers';
 import Homepage from './components/Homepage.js';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 ReactDOM.render(
