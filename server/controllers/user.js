@@ -35,12 +35,17 @@ createAccountHelper = (req, res) => {
             },
             jwttoken: jwttoken
         })
-    })
+
+        Linkedin.create({ name: req.body.linkedin, userId: user.id})
+        .then(linkedin => console.log("Create linkedin success: " + linkedin))
+        .catch(err => console.log("Create linkedin fail: " + err))
+        Github.create({ name: req.body.github, userId: user.id})
+        .then(github => console.log("Create github success: " + github))
+        .catch(err => console.log("Create github fail: " + err))
+    }) 
     .catch(err => res.status(403).send({
         error: err})
     )
-    Linkedin.create({ name: req.body.linkedin })
-    Github.create({ name: req.body.github })
              
 },
 
@@ -128,26 +133,23 @@ module.exports = {
         const userId = req.query.userId;
         if (userId) {
             console.log('id = ' + userId)
-            User.findById(userId)
-                .then(user => {
-                    console.log("github: " + user.github)
-                    if (!user.github)
+            Github.findOne({where: {userId: userId}})
+                .then(github => {
+                    console.log("github: " + github.name)
+                    if (!github.name)
                         return res.status(404).send({ err: "Repos not found" })
-                    axios.get(`https://api.github.com/users/${user.github}/repos`)
+                        axios.get(`https://api.github.com/users/${github.name}/repos`)
                         .then(response => {
-                            console.log(response)
                             return res.status(200).send({
-                                username: user.username,
-                                userId: user.id,
                                 repos: response.data
                             })
                         })
                         .catch(err => {
-                            res.status(400).send({ err: "Fetch from gethub error: " + err })
+                            res.status(400).send({ err: "Fetch from gethub fail: " + err })
                         })
                 })
                 .catch(err => {
-                    res.status(404).send({ err: err || 'user not found' })
+                    res.status(400).send({ err: 'Finding repo fail: ' + err})
                 });
         } else {
             res.status(400).send({ err: "No id param. " });

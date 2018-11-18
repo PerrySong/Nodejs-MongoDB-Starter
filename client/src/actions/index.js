@@ -2,7 +2,7 @@ import axios from 'axios';
 // import { AUTH_USER, AUTH_ERROR } from './types';
 // import jsxToString from 'jsx-to-string';
 const root_Url = "/api";
-const queryUser = "?id=";
+const queryUser = "?userId=";
 export const USER_LIST = 'user_list';
 export const USER = 'user';
 export const EXISTING_USER = 'existing_user';
@@ -24,9 +24,10 @@ export function getAllUsers() {
  * Get one user on Showcase
  * @param  id 
  */
-export function getUser(id) {
-  const request = axios.get(`${root_Url}/user${queryUser}${id}`)
+export function getUser(userId) {
+  const request = axios.get(`${root_Url}/user${queryUser}${userId}`)
 
+  console.log( request)
   return {
       type: USER,
       payload: request
