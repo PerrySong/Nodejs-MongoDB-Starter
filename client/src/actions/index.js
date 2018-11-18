@@ -14,10 +14,10 @@ export const EXISTING_USER = 'existing_user';
  */
 export function getAllUsers() {
     const request = axios.get(`${root_Url}/userlist`);
-        return {
-            type: USER_LIST,
-            payload: request
-        }
+    return {
+        type: USER_LIST,
+        payload: request
+    };
 }
 
 /**

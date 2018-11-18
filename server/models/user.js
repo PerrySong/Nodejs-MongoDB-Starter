@@ -21,22 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    firstname: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    github: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    linkedin: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
   });
   User.associate = function(models) {
     // associations can be defined here
