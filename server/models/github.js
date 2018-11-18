@@ -13,9 +13,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    url: {
-      type: DataTypes.STRING
-    }
   },
   {
     // disable the modification of tablenames; By default, sequelize will automatically
