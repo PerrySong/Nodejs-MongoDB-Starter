@@ -1,51 +1,52 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
-import "../css/App.css";
-import { signIn } from "../actions";
+import { login } from "../actions";
 import { connect } from "react-redux";
-//reduxForm handles the state of our form  
+import "../css/App.css";
+
+//reduxForm handles the state of our form
 
 class SignIn extends Component {
+
   renderField(field) {
     const { meta } = field;
-    const className = `form-group ${
-      meta.touched && meta.error ? "has-danger" : ""
-    }`;
 
     return (
-      <div className={className}>
-        <label className="FormField__Label">
-          {field.label}
-        </label>
-        <input
-          placeholder={field.placeholder}
-          className="FormField__Input"
-          //..field.input is an object, containing a bunch of event handlers
-          type={field.text}
-          {...field.input}
-        />
-        <div className="text-help">
-                 {meta.touched ? meta.error : ''}
+      <div className="FormField">
+        <div className="FormField">
+          <label className="FormField__Label">{field.label}</label>
+          <input
+            placeholder={field.placeholder}
+            className={field.className}
+            type={field.text}
+            //..field.input is an object, containing a bunch of event handlers
+            {...field.input}
+          />
         </div>
       </div>
     );
   }
 
+  /**
+   * If sign in not valid, redirect
+   * @param values 
+   */
   onSubmit(values) {
     console.log(values);
-    this.props.signIn(values, () => {
+
+    this.props.login(values, () => {
       this.props.history.push("/");
     });
   }
 
   render() {
     //handleSubmit is a property passed to this.props from reduxForm
-    //we use this so that 
-    //When a form is submitted, if there are no errors, 
+    //we use this so that
+    //When a form is submitted, if there are no errors,
     //onSubmit will be called
-        
-    const { handleSubmit } = this.props;
+
+    const {asyncValidating, handleSubmit, submitting} = this.props;
     return (
       <div className="App">
         <div className="App__Aside" />
@@ -63,25 +64,30 @@ class SignIn extends Component {
               SignUp
             </Link>
           </div>
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+
+          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <Field
               className="FormField__Input"
-              label="Username"
-              placeholder="Enter your username"
               name="username"
               type="text"
+              label="Username"
+              placeholder="Enter your username"
               component={this.renderField}
             />
             <Field
               className="FormField__Input"
+              name="password"
+              type="password"
               label="Password"
               placeholder="Enter your password"
-              name="password"
-              type="text"
               component={this.renderField}
             />
             <div className="FormField">
-              <button className="FormField__Button mr-20"> Sign In </button>
+              <button 
+              type="submit"
+              className="FormField__Button mr-20"
+              disabled={submitting}
+              > Sign In </button>
             </div>
           </form>
         </div>
@@ -90,10 +96,30 @@ class SignIn extends Component {
   }
 }
 
+//For any field errors upon submission (i.e. not instant check)
+// const validateAndSignInUser = (values, dispatch) => {
+//   return dispatch(login(values))
+//     .then((result) => {
+//       // Note: Error's "data" is in result.payload.response.data (inside "response")
+//       // success's "data" is in result.payload.data
+//       if (result.payload.response && result.payload.response.status !== 200) {
+//         dispatch(signInUserFailure(result.payload.response.data));
+//         throw new SubmissionError(result.payload.response.data);
+//       }
+
+//       //Store JWT Token to browser session storage 
+//       //If you use localStorage instead of sessionStorage, then this w/ persisted across tabs and new windows.
+//       //sessionStorage = persisted only in current tab
+//       sessionStorage.setItem('jwtToken', result.payload.data.token);
+//       //let other components know that everything is fine by updating the redux` state
+//       dispatch(signInUserSuccess(result.payload.data)); //ps: this is same as dispatching RESET_USER_FIELDS
+//     });
+// };
+
 /**
- * Validate function is called automatically whenever a user 
+ * Validate function is called automatically whenever a user
  * clicks on the submit button
- * 
+ *
  * Input argument 'values' contains items that user has input into the form
  */
 function validate(values) {
@@ -114,12 +140,13 @@ function validate(values) {
   return errors;
 }
 
+
 export default reduxForm({
-  validate: validate,
-  form: "PostsNewForm"
+  form: "PostExistingUser",
+  validate
 })(
   connect(
     null,
-    { signIn }
+    { login }
   )(SignIn)
 );
