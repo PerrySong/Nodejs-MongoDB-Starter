@@ -3,10 +3,12 @@ import axios from 'axios';
 // import jsxToString from 'jsx-to-string';
 const root_Url = "/api";
 const queryUser = "?userId=";
-export const USER_LIST = 'user_list';
-export const USER = 'user';
-export const EXISTING_USER = 'existing_user';
-export const NEW_USER = 'new_user';
+export const USER_LIST = 'USER_LIST';
+export const GET_USER = 'GET_USER';
+export const LOGIN_USER = 'LOGIN_USER';
+export const NEW_USER = 'NEW_USER';
+export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
+export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 
 /**
  * Get All users on Showcase 
@@ -27,7 +29,7 @@ export function getUser(userId) {
   const request = axios.get(`${root_Url}/user${queryUser}${userId}`)
   console.log( request)
   return {
-      type: USER,
+      type: GET_USER,
       payload: request
   }
 }
@@ -36,16 +38,18 @@ export function getUser(userId) {
    * 
    * How do I add items into the body
    */
-  export function signIn(values) {
-      console.log(values.username);
-      console.log(values.password);
-      const request = axios(`${root_Url}/login`, {
+  export function login(values, callback) {
+      
+      const object = {
         username: values.username,
-        password: values.password
-      });
+        password: values.password,
+      }
+
+      const request = axios(`${root_Url}/login`, object)
+      .then(() => callback());
 
     return {
-        type: EXISTING_USER,
+        type: LOGIN_USER,
         payload: request
     }
   }
@@ -53,11 +57,35 @@ export function getUser(userId) {
   /**
    * Sign up a new user
    */
-  export function signUp() {
-      const request = axios.post();
-
+  export function register(values, callback) {
+      
+      const object = {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        linkedin:values.linkedin,
+        github:values.github
+      }
+      
+      const request = axios.post(`${root_Url}/register`, object)
+      .then(() => callback());
+      
       return {
           type: NEW_USER,
           payload: request
       }
+  }
+
+  export function registerUserFailure(error) {
+    return {
+      type: REGISTER_USER_FAILURE,
+      payload: error
+    };
+  }
+
+  export function registerUserSuccess(user) {
+    return {
+      type: REGISTER_USER_SUCCESS,
+      payload: user
+    };
   }

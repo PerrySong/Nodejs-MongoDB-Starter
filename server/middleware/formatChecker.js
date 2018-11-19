@@ -41,9 +41,8 @@ module.exports = {
         const password = req.body.password;
         const username = req.body.username;
         const email = req.body.email;
-        const firstname = req.body.firstname;
-        const lastname = req.body.lastname;
-        if (!password || !username || !email || !firstname || !lastname) {
+    
+        if (!password || !username || !email) {
             res.status(404).send({
                 error: "Please fill the required blanks"
             })
