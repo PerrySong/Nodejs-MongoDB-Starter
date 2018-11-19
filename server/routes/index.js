@@ -1,4 +1,5 @@
 const usersController = require('../controllers').user,
+      githubController = require('../controllers').github,
       jwtCheck = require('../middleware/authorization').jwtCheck,
       formatChecker = require('../middleware/formatChecker')
 
@@ -22,7 +23,7 @@ module.exports = (app) => {
   
   app.get('/userlist', usersController.userList);
 
-  app.get('/github', usersController.getGithub);
+  app.get('/github', githubController.getGithub);
   //TODO:
   // Create worker to fetch data from linkedin and github and store data in the db
 

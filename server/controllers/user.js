@@ -141,6 +141,7 @@ module.exports = {
                         axios.get(`https://api.github.com/users/${github.name}/repos`)
                         .then(response => {
                             return res.status(200).send({
+                                userId: userId,
                                 repos: response.data
                             })
                         })
@@ -157,19 +158,8 @@ module.exports = {
         }
     },
 
-    linkedin(req, res) {
-        axios.get("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86g4me4vprq5yo&redirect_uri=https%3A%2F%2Fwww.google.com&state=987654321&scope=r_basicprofile")
-            .then(response => {
-                console.log(response.data)
-                res.status(200).send(response.data);
-            })
-            .catch(err => {
-                res.status(400).send({ err: "Fetch from linkedin error: " + err })
-            })
-    },
-
     userList(req, res) {
-        User.findAll()
+        User.findAll({ limit: 10 }) // Only return 10 users's list
             .then(users => {
                 res.status(200).send(users.map(user => {
                     return { username: user.username, userId: user.id }
@@ -180,19 +170,21 @@ module.exports = {
             })
     },
 
-    getGithub(req, res) {
-        const userId = req.query.userId;
-        Github.find({ where: { userId: userId } })
-            .then(github => {
-                res.status(200).send({github: github})
-            })
-            .catch(err => {
-                res.status(400).send({ err: err })
-            })
-    },
-
+    // Test code: 
+    // TODO: change the function below
     linkedinAuth(req, res) {
         console.log(req.query.code);
         res.status(200).send('Hi')
-    }
+    },
+
+    linkedin(req, res) {
+        axios.get("https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=86g4me4vprq5yo&redirect_uri=https%3A%2F%2Fwww.google.com&state=987654321&scope=r_basicprofile")
+            .then(response => {
+                console.log(response.data)
+                res.status(200).send(response.data);
+            })
+            .catch(err => {
+                res.status(400).send({ err: "Fetch from linkedin error: " + err })
+            })
+    },
 }
