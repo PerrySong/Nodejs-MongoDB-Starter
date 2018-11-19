@@ -113,13 +113,12 @@ module.exports = {
         console.log("find request");
         const username = req.query.username;
         if (username) {
-            console.log(username)
-            User.findOne({ username: username })
+            console.log("username = " + username)
+            User.findOne({ where: {username: username} })
                 .then(user => {
                     return res.status(200).send({
                         username: user.username,
-                        userId: user.id,
-                        github: user.github
+                        userId: user.id
                     })
                 })
                 .catch(err => res.status(404).send({ err: err }));
@@ -138,6 +137,7 @@ module.exports = {
                     console.log("github: " + github.name)
                     if (!github.name)
                         return res.status(404).send({ err: "Repos not found" })
+                    else {
                         axios.get(`https://api.github.com/users/${github.name}/repos`)
                         .then(response => {
                             return res.status(200).send({
@@ -147,6 +147,7 @@ module.exports = {
                         .catch(err => {
                             res.status(400).send({ err: "Fetch from gethub fail: " + err })
                         })
+                    }
                 })
                 .catch(err => {
                     res.status(400).send({ err: 'Finding repo fail: ' + err})
@@ -167,11 +168,6 @@ module.exports = {
             })
     },
 
-    linkedinAuth(req, res) {
-        console.log(req.query.code);
-        res.status(200).send('Hi')
-    },
-
     userList(req, res) {
         User.findAll()
             .then(users => {
@@ -188,12 +184,15 @@ module.exports = {
         const userId = req.query.userId;
         Github.find({ where: { userId: userId } })
             .then(github => {
-                console.log("github = " + github)
-                res.status(200).send(github)
+                res.status(200).send({github: github})
             })
             .catch(err => {
                 res.status(400).send({ err: err })
             })
-    }
+    },
 
+    linkedinAuth(req, res) {
+        console.log(req.query.code);
+        res.status(200).send('Hi')
+    }
 }

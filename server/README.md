@@ -30,6 +30,7 @@
     github       | string           | Opetional | If you are willing to share you github info
     
     *Response*
+
 ```json
     {
         "user": {
@@ -90,19 +91,18 @@
 ```json
     {
         "username": "robot101011",
-        "id": "user-405opf56joc54ic9",
-        "github": "PerrySong"
+        "id": "user-405opf56joc54ic9"
     }
 ```
 
 * # user
 
     *Request*
-    `GET /user?id=user-405opf56joc54ic9`
+    `GET /user?userId=user-405opf56joc54ic9`
 
 ```json
     {
-        
+
     "repos": [
         {
             "id": 130904738,
@@ -203,6 +203,24 @@
         ]
     }
 ```
+
+* # Github
+
+    *Request*
+    `GET github?userId=user-406jkl4sjonimrqs`
+
+*Response*
+```json
+{
+    "github": {
+        "id": 6,
+        "name": "PerrySong",
+        "createdAt": "2018-11-18T23:31:51.457Z",
+        "updatedAt": "2018-11-18T23:31:51.457Z",
+        "userId": "user-406jkl4sjonimrqs"
+    }
+}
+
 ---
 * # Authorization
 
