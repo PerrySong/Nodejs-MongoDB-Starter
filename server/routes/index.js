@@ -19,7 +19,9 @@ module.exports = (app) => {
   //Users' github repo
   app.get('/user', usersController.user);
   app.get('/linkedin', usersController.linkedin);
+  
   app.get('/userlist', usersController.userList);
+
   app.get('/github', usersController.getGithub);
   //TODO:
   // Create worker to fetch data from linkedin and github and store data in the db
