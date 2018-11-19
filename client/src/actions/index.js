@@ -25,9 +25,7 @@ export function getAllUsers() {
  */
 export function getUser(userId) {
   const request = axios.get(`${root_Url}/user${queryUser}${userId}`)
-
-  console.log(request);
-
+  console.log( request)
   return {
       type: USER,
       payload: request

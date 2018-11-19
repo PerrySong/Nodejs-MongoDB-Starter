@@ -102,8 +102,7 @@
 
 ```json
     {
-        "username": "robot101011",
-    "id": "user-405opf56joc54ic9",
+        
     "repos": [
         {
             "id": 130904738,
