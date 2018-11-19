@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
+import { signUp } from "../actions";
+import { connect } from "react-redux";
+
 import "../css/App.css";
 
 class SignUp extends Component {
@@ -22,7 +26,7 @@ class SignUp extends Component {
           <div className="FormField">
             <form className="FormFields" onSubmit={this.handleSubmit}>
               <div className="FormField">
-                <label className="FormField__Label" htmlfor="username">
+                <label className="FormField__Label">
                   Username
                 </label>
                 <input
@@ -39,7 +43,7 @@ class SignUp extends Component {
           <div className="FormField">
             <form className="FormFields" onSubmit={this.handleSubmit}>
               <div className="FormField">
-                <label className="FormField__Label" htmlfor="email">
+                <label className="FormField__Label">
                   E-mail
                 </label>
                 <input
@@ -47,7 +51,7 @@ class SignUp extends Component {
                   id="email"
                   className="FormField__Input"
                   placeholder="Enter your email"
-                  name="useemailrname"
+                  name="useremailname"
                 />
               </div>
             </form>
@@ -56,7 +60,7 @@ class SignUp extends Component {
           <div className="FormField">
             <form className="FormFields" onSubmit={this.handleSubmit}>
               <div className="FormField">
-                <label className="FormField__Label" htmlfor="password">
+                <label className="FormField__Label">
                   Password
                 </label>
                 <input
@@ -73,7 +77,7 @@ class SignUp extends Component {
           <div className="FormField">
             <form className="FormFields" onSubmit={this.handleSubmit}>
               <div className="FormField">
-                <label className="FormField__Label" htmlfor="password">
+                <label className="FormField__Label">
                   Confirm Password
                 </label>
                 <input
@@ -90,7 +94,7 @@ class SignUp extends Component {
           <div className="FormField">
             <form className="FormFields" onSubmit={this.handleSubmit}>
               <div className="FormField">
-                <label className="FormField__Label" htmlfor="password">
+                <label className="FormField__Label">
                   LinkedIn
                 </label>
                 <input
@@ -107,7 +111,7 @@ class SignUp extends Component {
           <div className="FormField">
             <form className="FormFields" onSubmit={this.handleSubmit}>
               <div className="FormField">
-                <label className="FormField__Label" htmlfor="password">
+                <label className="FormField__Label">
                   Github
                 </label>
                 <input
@@ -130,4 +134,7 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default reduxForm({
+  form: "PostNewUser"
+})(
+  connect(null,{signUp})(SignUp));

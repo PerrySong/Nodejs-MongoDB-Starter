@@ -9,24 +9,20 @@ import { connect } from "react-redux";
 class SignIn extends Component {
   renderField(field) {
     const { meta } = field;
-    const className = `form-group ${
-      meta.touched && meta.error ? "has-danger" : ""
-    }`;
 
     return (
-      <div className={className}>
+      <div className="FormField">
+        <div className="FormField">
         <label className="FormField__Label">
           {field.label}
         </label>
         <input
           placeholder={field.placeholder}
-          className="FormField__Input"
-          //..field.input is an object, containing a bunch of event handlers
+          className={field.className}
           type={field.text}
+          //..field.input is an object, containing a bunch of event handlers
           {...field.input}
         />
-        <div className="text-help">
-                 {meta.touched ? meta.error : ''}
         </div>
       </div>
     );
@@ -52,10 +48,7 @@ class SignIn extends Component {
 
         <div className="App__Form">
           <div className="FormTitle">
-            <Link
-              to="/signin"
-              className="FormTitle__Link FormTitle__Link--Active"
-            >
+            <Link to="/signin" className="FormTitle__Link FormTitle__Link--Active">
               SignIn
             </Link>
             or
@@ -63,6 +56,7 @@ class SignIn extends Component {
               SignUp
             </Link>
           </div>
+
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <Field
               className="FormField__Input"
@@ -115,11 +109,6 @@ function validate(values) {
 }
 
 export default reduxForm({
-  validate: validate,
-  form: "PostsNewForm"
+  form: "PostExistingUser"
 })(
-  connect(
-    null,
-    { signIn }
-  )(SignIn)
-);
+  connect(null,{signIn})(SignIn));
