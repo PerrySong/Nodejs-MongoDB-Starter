@@ -1,5 +1,5 @@
 
-import {USER_LIST, GET_USER} from '../actions/index';
+import {USER_LIST, GET_USER, NEW_USER} from '../actions/index';
 import _ from 'lodash';
 
 export default function(state = {}, action) {
@@ -12,7 +12,7 @@ export default function(state = {}, action) {
         //where action.payload.data.userid is the key 
         //we add it into the overall state object
         //TODO: change from "id" to "userId"
-        // console.log(action.payload.data);
+        console.log(action.payload.data);
             return { ...state, [action.payload.data.userId]: action.payload.data}
             
     default:

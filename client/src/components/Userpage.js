@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { getUser } from '../actions/index';
 import _ from 'lodash';
 
-
 class Userpage extends Component {
 
     componentDidMount() {
@@ -47,7 +46,7 @@ function mapStateToProps({ posts }, ownProps ) {
     //by returning this, we only return a single post that we went to fetch
     // console.log({posts})
     // console.log(ownProps.match.params.userid);
-    // console.log(posts[ownProps.match.params.userId]);
+    console.log(posts[ownProps.match.params.userId]);
     return { post : posts[ownProps.match.params.userId]};
 }
 

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import { FormGroup, FormControl, Button, ControlLabel } from 'react-bootstrap';
 import { bootstrapUtils } from 'react-bootstrap/lib/utils';
-
 import '../static/css/signin.css';
 import '../static/css/components.css';
 bootstrapUtils.addStyle(Button, 'custom');

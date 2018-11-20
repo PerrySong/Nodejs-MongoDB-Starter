@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
-import { login } from "../actions";
+import { login, loginUserSuccess} from "../actions";
 import { connect } from "react-redux";
 import "../css/App.css";
 
-//reduxForm handles the state of our form
 
 class SignIn extends Component {
 
@@ -34,7 +33,6 @@ class SignIn extends Component {
    */
   onSubmit(values) {
     console.log(values);
-
     this.props.login(values, () => {
       this.props.history.push("/");
     });
@@ -46,7 +44,7 @@ class SignIn extends Component {
     //When a form is submitted, if there are no errors,
     //onSubmit will be called
 
-    const {asyncValidating, handleSubmit, submitting} = this.props;
+    const {handleSubmit, submitting} = this.props;
     return (
       <div className="App">
         <div className="App__Aside" />
@@ -96,26 +94,6 @@ class SignIn extends Component {
   }
 }
 
-//For any field errors upon submission (i.e. not instant check)
-// const validateAndSignInUser = (values, dispatch) => {
-//   return dispatch(login(values))
-//     .then((result) => {
-//       // Note: Error's "data" is in result.payload.response.data (inside "response")
-//       // success's "data" is in result.payload.data
-//       if (result.payload.response && result.payload.response.status !== 200) {
-//         dispatch(signInUserFailure(result.payload.response.data));
-//         throw new SubmissionError(result.payload.response.data);
-//       }
-
-//       //Store JWT Token to browser session storage 
-//       //If you use localStorage instead of sessionStorage, then this w/ persisted across tabs and new windows.
-//       //sessionStorage = persisted only in current tab
-//       sessionStorage.setItem('jwtToken', result.payload.data.token);
-//       //let other components know that everything is fine by updating the redux` state
-//       dispatch(signInUserSuccess(result.payload.data)); //ps: this is same as dispatching RESET_USER_FIELDS
-//     });
-// };
-
 /**
  * Validate function is called automatically whenever a user
  * clicks on the submit button
@@ -140,13 +118,9 @@ function validate(values) {
   return errors;
 }
 
-
 export default reduxForm({
   form: "PostExistingUser",
   validate
 })(
   connect(
-    null,
-    { login }
-  )(SignIn)
-);
+   null,{ login, loginUserSuccess })(SignIn));
