@@ -1,51 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Field, reduxForm, SubmissionError } from "redux-form";
-import { Redirect } from 'react-router-dom';
-import { register, registerUserFailure, registerUserSuccess } from "../actions";
+import { register, registerUserFailure, registerUserSuccess } from "../../actions";
 import { connect } from "react-redux";
-import "../css/App.css";
-
-
-// onSubmit(values) {
-//   console.log("onSubmit");
-//   if (values.password === values.confirmPassword) {
-//     this.props.register(values, () => {
-//       this.props.history.push("/");
-//     });
-//   } else {
-//     <Redirect to='/signup'/>
-//   }
-// }
-
- //For any field errors upon submission (i.e. not instant check)
- const validateAndRegister = (values, dispatch) => {
-   console.log("checkpoint1")
-
-  if (values.password === values.confirmPassword) {
-      return dispatch(register(values))
-      .then((result) => {
-
-        // Note: Error's "data" is in result.payload.response.data (inside "response")
-        // success's "data" is in result.payload.data
-        if (result.payload.response && result.payload.response.status !== 200) {
-          dispatch(registerUserFailure(result.payload.response.data));
-          throw new SubmissionError(result.payload.response.data);
-        }
-
-        //Store JWT Token to browser session storage 
-        //If you use localStorage instead of sessionStorage, then this w/ persisted across tabs and new windows.
-        //sessionStorage = persisted only in current tab
-        sessionStorage.setItem('jwttoken', result.payload.data.jwtToken);
-        //let other components know that everything is fine by updating the redux` state
-        dispatch(registerUserSuccess(result.payload.data)); //ps: this is same as dispatching RESET_USER_FIELDS
-      });
-  } else {
-    //Let user know passwords dont match
-    console.log("Password dont match");
-    window.location.reload();
-  }
- }
+import "./Reception.css";
 
 class SignUp extends Component {
 
@@ -63,11 +21,31 @@ class SignUp extends Component {
             //..field.input is an object, containing a bunch of event handlers
             {...field.input}
           />
-
+          <label className="FormField__CheckboxLabel">{field.require}</label>
         </div>
       </div>
     );
   }
+
+
+
+  onSubmit = formProps => {
+    this.props.register(formProps, () => {
+      this.props.history.push('/');
+    });
+  };
+
+  // onSubmit(values) {
+  // console.log("onSubmit");
+  // if (values.password === values.confirmPassword) {
+  //   this.props.register(values, () => {
+  //     this.props.history.push("/");
+  //   });
+  // } else {
+  //   console.log("Passwords dont match");
+  //   window.location.reload();
+  // }
+// }
 
   render() {
     const { handleSubmit } = this.props;
@@ -86,13 +64,14 @@ class SignUp extends Component {
             </Link>
           </div>
 
-          <form onSubmit={handleSubmit(validateAndRegister)}>
+          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <Field
               className="FormField__Input"
               label="Username"
               placeholder="Enter your username"
               name="username"
               type="text"
+              require="Length 6-30 characters with no spaces"
               component={this.renderField}
             />
 
@@ -112,6 +91,7 @@ class SignUp extends Component {
               name="password"
               type="password"
               id="secret"
+              require="Length 8-20 characters with have upper and lower case, digits and no spaces"
               component={this.renderField}
             />
 
@@ -121,6 +101,7 @@ class SignUp extends Component {
               placeholder="Re-enter your password"
               name="confirmPassword"
               type="text"
+              require="Length 8-20 characters with have upper and lower case, digits and no spaces"
               component={this.renderField}
             />
 
@@ -155,7 +136,11 @@ class SignUp extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {posts: state.posts};
+}
+
 export default reduxForm({
   form: "PostNewUser"
 })(
-  connect(null,{ register, registerUserFailure, registerUserSuccess })(SignUp));
+  connect(mapStateToProps ,{ register, registerUserFailure, registerUserSuccess })(SignUp));

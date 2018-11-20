@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import { AUTH_USER, AUTH_ERROR } from './types';
 // import jsxToString from 'jsx-to-string';
-const root_Url = "/api";
+const root_Url = "http://localhost:3050/api";
 const queryUser = "?userId=";
 export const USER_LIST = 'USER_LIST';
 export const GET_USER = 'GET_USER';
@@ -9,6 +9,8 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const NEW_USER = 'NEW_USER';
 export const REGISTER_USER_FAILURE = 'REGISTER_USER_FAILURE';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+
 
 /**
  * Get All users on Showcase 
@@ -26,12 +28,13 @@ export function getAllUsers() {
  * @param  userId 
  */
 export function getUser(userId) {
-  const request = axios.get(`${root_Url}/user${queryUser}${userId}`)
-  console.log( request)
-  return {
-      type: GET_USER,
-      payload: request
-  }
+    console.log(userId)
+    const request = axios.get(`${root_Url}/user${queryUser}${userId}`)
+    console.log(request)
+    return {
+        type: GET_USER,
+        payload: request
+    }
 }
   /**
    * Sign a user in 
@@ -42,12 +45,14 @@ export function getUser(userId) {
       
       const object = {
         username: values.username,
-        password: values.password,
+        password: values.password
       }
 
+      console.log(object);
       const request = axios(`${root_Url}/login`, object)
       .then(() => callback());
-
+      
+      console.log(request);
     return {
         type: LOGIN_USER,
         payload: request
@@ -63,13 +68,18 @@ export function getUser(userId) {
         username: values.username,
         email: values.email,
         password: values.password,
-        linkedin:values.linkedin,
-        github:values.github
+        linkedin: values.linkedin,
+        github: values.github
       }
+
+      console.log(object);
       
       const request = axios.post(`${root_Url}/register`, object)
       .then(() => callback());
       
+      console.log("Register action");
+      console.log(request);
+
       return {
           type: NEW_USER,
           payload: request
@@ -86,6 +96,13 @@ export function getUser(userId) {
   export function registerUserSuccess(user) {
     return {
       type: REGISTER_USER_SUCCESS,
+      payload: user
+    };
+  }
+
+  export function loginUserSuccess(user) {
+    return {
+      type: LOGIN_USER_SUCCESS,
       payload: user
     };
   }
