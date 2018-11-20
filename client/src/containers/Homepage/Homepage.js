@@ -1,10 +1,9 @@
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.css';
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import _ from 'lodash';
 import {connect} from 'react-redux';
-import {getAllUsers} from '../actions/index';
+import {getAllUsers} from '../../actions/index';
 
 class Homepage extends Component {
 
@@ -36,7 +35,6 @@ class Homepage extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.log(state.posts);
   return {posts: state.posts};
 }
 

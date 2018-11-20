@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Field, reduxForm, SubmissionError } from "redux-form";
-import { Redirect } from 'react-router-dom';
-import { register, registerUserFailure, registerUserSuccess } from "../actions";
+import { register, registerUserFailure, registerUserSuccess } from "../../actions";
 import { connect } from "react-redux";
-import "../css/App.css";
+import "./Reception.css";
 
 class SignUp extends Component {
 

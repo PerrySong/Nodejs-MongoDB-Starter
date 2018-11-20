@@ -6,10 +6,10 @@ import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
 import reducers from './reducers';
 import 'bootstrap/dist/css/bootstrap.css';
-import Homepage from './components/Homepage.js';
-import Userpage from './components/Userpage';
-import SignIn from './components/SignIn.js';
-import SignUp from './components/SignUp.js';
+import Homepage from './containers/Homepage/Homepage';
+import Userpage from './containers/Userpage/Userpage';
+import SignIn from './containers/Reception/SignIn.js';
+import SignUp from './containers/Reception/SignUp.js';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
