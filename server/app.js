@@ -7,7 +7,7 @@ const cors = require('cors');
 
 
 //Send email notification to user at 8am every day
-// var j = schedule.scheduleJob('0 * * * * *', function(){
+// const j = schedule.scheduleJob('0 * * * * *', function(){
 //   console.log("sent email")
 //   notification.pushNotification();
 // });

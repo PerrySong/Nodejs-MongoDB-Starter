@@ -11,7 +11,7 @@ const axios = require('axios');
 
 module.exports = {
   getGithub(req, res) {
-    var userId = req.query.userId;
+    const userId = req.query.userId;
     Github.find({ where: { userId: userId } })
         .then(github => {
             res.status(200).send({

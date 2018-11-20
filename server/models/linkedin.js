@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  var Linkedin = sequelize.define('Linkedin', {
+  const Linkedin = sequelize.define('Linkedin', {
     id: {
       type: DataTypes.STRING,
       autoIncrement: true,

@@ -1,7 +1,7 @@
 'use strict'
 //This table indicate the coin's type and amount a user currently hold 
 module.exports = (sequelize, DataTypes) => {
-  var Github = sequelize.define('Github', {
+  const Github = sequelize.define('Github', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

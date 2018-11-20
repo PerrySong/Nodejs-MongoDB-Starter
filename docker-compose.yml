@@ -1,8 +1,11 @@
-version: '3'
+version: '3.5'
 services: 
   postgres:
     image: 'postgres:latest'
     restart: always
+    networks:
+      - workflow
+
   nginx:
     restart: always
     build: 
@@ -10,6 +13,9 @@ services:
       context: ./nginx
     ports:
       - '3050:80'
+    networks:
+      - workflow
+
   api:
     restart: always
     build:
@@ -24,7 +30,8 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres
       - PGPORT=5432
-    
+    networks:
+      - workflow
 
 # Environment Variables
   client:
@@ -34,3 +41,13 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+    networks:
+      - workflow
+
+networks:
+  workflow:
+    # Use a custom driver
+    name: workflow
+    driver: bridge
+    
+

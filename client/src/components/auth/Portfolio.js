@@ -10,8 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import '../static/css/portfolio.css';
 
 
-var CoinMarketCap = require("node-coinmarketcap");
-var coinmarketcap = new CoinMarketCap();
+const CoinMarketCap = require("node-coinmarketcap");
+const coinmarketcap = new CoinMarketCap();
 
 class Portfolio extends Component {
     constructor() {
@@ -30,16 +30,16 @@ class Portfolio extends Component {
       axios.get('http://18.204.49.151/user/asset',
         { headers: { "authorization": `${localStorage.getItem('jwttoken')}` } })
         .then(async response => {
-          var data = response.data;
+          const data = response.data;
 
           coinmarketcap.multi(coins => {
-            for(var i = 0; i < data.length; i++) {
+            for(let i = 0; i < data.length; i++) {
               if(data[i].type === "USD"){
                 this.costUsd = data[i].amount;
                 continue;
               }
-              var symbol = data[i].type;
-              var amount = data[i].amount;
+              const symbol = data[i].type;
+              const amount = data[i].amount;
 
               this.totalValue = this.totalValue + coins.get(symbol).price_usd * amount; 
               this.portfolioArray.push(data[i]);

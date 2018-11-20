@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  var Repo = sequelize.define('Repo', {
+  const Repo = sequelize.define('Repo', {
     id: {
       type: DataTypes.STRING,
       allowNull: false,

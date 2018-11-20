@@ -36,10 +36,10 @@ class Search extends React.Component {
     cryptoSearch.partialNameSearchCoins(formProps.searchItem)
       .then((res) => {
         // console.log(res);
-        for (var searchresults in res) {
+        for (let searchresults in res) {
           console.log(res[searchresults])
           // const singlecoin = res[searchresults];
-          var singledata = {
+          const singledata = {
             "index": this.index,
             "id": res[searchresults].id,
             "name": res[searchresults].name,

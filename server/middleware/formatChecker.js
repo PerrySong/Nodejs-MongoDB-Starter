@@ -10,7 +10,7 @@ checkEmail = (req, res) => {
 
 // username: length 6-30, no space
 checkUsername = (req, res) => {
-    var schema = new passwordValidator();
+    const schema = new passwordValidator();
 
     schema
     .is().min(6)
@@ -23,7 +23,7 @@ checkUsername = (req, res) => {
 // password:length 8-20, have upper and lower case,
 // have digits, no space
 checkPassword = (req, res) => {
-    var schema = new passwordValidator();
+    const schema = new passwordValidator();
 
     schema
     .is().min(8)                                    // Minimum length 8

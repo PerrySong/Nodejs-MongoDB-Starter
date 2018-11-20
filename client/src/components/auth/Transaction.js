@@ -21,8 +21,8 @@ class Transaction extends Component {
     axios.get('http://18.204.49.151/user/transactions',
       { headers: { "authorization": `${localStorage.getItem('jwttoken')}` } })
       .then(response => {
-        var data = response.data;
-        for(var trans in data) {
+        const data = response.data;
+        for(let trans in data) {
           console.log("transactions response: "+data[trans].income_type);
           this.transactionsArray.push(data[trans]);
         }

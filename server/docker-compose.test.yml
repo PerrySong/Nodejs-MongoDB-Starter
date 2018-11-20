@@ -1,12 +1,8 @@
-version: '3'
+version: '3.5'
 services: 
-  postgres:
-    image: 'postgres:latest'
-    restart: always
-  api:
-    restart: always
+  api_test:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.test.dev
       context: .
     volumes:
       - /app/node_modules #do not try overwrite it
@@ -15,7 +11,11 @@ services:
       - PGUSER=postgres
       - PGHOST=postgres
       - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
+      - PGPASSWORD=postgres
       - PGPORT=5432
-    ports:
-      - "8000:8000"
+    networks:
+      - workflow-test
+networks:
+  workflow-test:
+    external: 
+      name: workflow

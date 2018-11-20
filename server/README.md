@@ -36,8 +36,6 @@
         "user": {
             "email": "youremail@gmail.com",
             "username": "robot101011",
-            "firstname": "\"your first name\",",
-            "lastname": "\"your last name\",",
             "github": "PerrySong",
             "linkedin": "Pengfei Song",
         },
@@ -67,10 +65,7 @@
         "user": {
             "email": "youremail@gmail.com",
             "username": "robot101011",
-            "firstname": "\"your first name\",",
-            "lastname": "\"your last name\",",
-            "github": "PerrySong",
-            "linkedin": "Pengfei Song",
+            "userId": "user-405opf56joc54ic9"
         },
         "jwttoken": "xxx"
     }
@@ -102,6 +97,7 @@
 
 ```json
     {
+    "userId": "user-405opf56joc54ic9",
     "repos": [
         {
             "id": 130904738,
