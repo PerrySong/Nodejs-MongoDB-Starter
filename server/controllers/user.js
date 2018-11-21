@@ -173,6 +173,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Return 10 users 
+     * @param {} req 
+     * @param {*} res 
+     */
     userList(req, res) {
         User.findAll({ limit: 10 }) // Only return 10 users's list
             .then(users => {
