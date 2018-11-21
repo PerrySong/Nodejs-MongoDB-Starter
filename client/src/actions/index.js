@@ -28,9 +28,9 @@ export function getAllUsers() {
  * @param  userId 
  */
 export function getUser(userId) {
-    console.log(userId)
+    // console.log(userId)
     const request = axios.get(`${root_Url}/user${queryUser}${userId}`)
-    console.log(request)
+    // console.log(request)
     return {
         type: GET_USER,
         payload: request
@@ -48,11 +48,9 @@ export function getUser(userId) {
         password: values.password
       }
 
-      console.log(object);
       const request = axios(`${root_Url}/login`, object)
       .then(() => callback());
-      
-      console.log(request);
+      // console.log(request);
     return {
         type: LOGIN_USER,
         payload: request
@@ -72,13 +70,15 @@ export function getUser(userId) {
         github: values.github
       }
 
-      console.log(object);
       
       const request = axios.post(`${root_Url}/register`, object)
-      .then(() => callback());
+      .then((returnVal) => {
+        console.log(`RETURN VALUE FROM SERVER`,returnVal)
+        callback(returnVal)
+      });
       
       console.log("Register action");
-      console.log(request);
+      // console.log(request);
 
       return {
           type: NEW_USER,

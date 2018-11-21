@@ -24,14 +24,14 @@ import './Repo.css'
 const styles = theme => ({
   
   techs: {
-    textItems: 'center'
+    textItems: 'left'
   },
     card: {
-    maxWidth: 300,
+    maxWidth: 400,
   },
   media: {
-    height: 50,
-    paddingTop: '50%',
+    height: 70,
+    paddingTop: '60%',
   },
   actions: {
     display: 'flex',
@@ -68,8 +68,8 @@ class Repo extends Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.showTech);
-    console.log(this.props.techs)
+    // console.log(this.state.showTech);
+    // console.log(this.props.techs)
     return (
       <Grid item md={4}>
         <Card className={classes.card} >
@@ -103,7 +103,7 @@ class Repo extends Component {
             /> :
             <CardMedia
               className={classes.media}
-              image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSljXFWcbsVy4spujHUWGbyQH26Vb5w4Y609yk-Ad2MnY2_3iJm"
+              image="https://imgur.com/a/v5n2NRU"
               title=""
             /> 
         }
