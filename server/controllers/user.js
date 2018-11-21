@@ -150,7 +150,7 @@ module.exports = {
                         axios.get(`https://api.github.com/users/${github.name}/repos`)
                         .then(response => {
                             return res.status(200).send({
-                                username: user.name,
+                                username: user.username,
                                 email: user.email,
                                 userId: userId,
                                 repos: response.data
