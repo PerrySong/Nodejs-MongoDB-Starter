@@ -127,12 +127,21 @@ module.exports = {
         }
     },
 
+    /**
+     * Response conatain a json object
+     * @param {*} req 
+     * @param {*} res 
+     */
     user(req, res) {
         console.log("/user");
         const userId = req.query.userId;
         if (userId) {
-            console.log('id = ' + userId)
-            Github.findOne({where: {userId: userId}})
+            User.findById(userId)
+            .then(user => {
+                if (!user) {
+                    return res.status(404).send({ err: 'no such user'})
+                }
+                Github.findOne({where: {userId: userId}})
                 .then(github => {
                     console.log("github: " + github.name)
                     if (!github.name)
@@ -141,6 +150,8 @@ module.exports = {
                         axios.get(`https://api.github.com/users/${github.name}/repos`)
                         .then(response => {
                             return res.status(200).send({
+                                username: user.name,
+                                email: user.email,
                                 userId: userId,
                                 repos: response.data
                             })
@@ -153,6 +164,10 @@ module.exports = {
                 .catch(err => {
                     res.status(400).send({ err: 'Finding repo fail: ' + err})
                 });
+            })
+            .catch(err => {
+                res.status(400).send({ err: 'Finding repo fail: ' + err})
+            });
         } else {
             res.status(400).send({ err: "No id param. " });
         }

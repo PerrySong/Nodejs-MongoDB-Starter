@@ -5,6 +5,8 @@ services:
     restart: always
     networks:
       - workflow
+    ports:
+      - '5555:5432'
 
   nginx:
     restart: always
@@ -32,6 +34,8 @@ services:
       - PGPORT=5432
     networks:
       - workflow
+    ports:
+      - '8000:8000'
 
 # Environment Variables
   client:

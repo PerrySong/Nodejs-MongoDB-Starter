@@ -12,16 +12,25 @@ const axios = require('axios');
 module.exports = {
   getGithub(req, res) {
     const userId = req.query.userId;
-    Github.find({ where: { userId: userId } })
+    User.findById(userId)
+    .then(user => {
+        if (!user) {
+            return res.status(404).send({ err: 'no such user'})
+        }
+        Github.find({ where: { userId: userId } })
         .then(github => {
-            res.status(200).send({
-                userId: userId,
+            return res.status(200).send({
+                userId: `Hi${userId}`,
                 github: github
             })
         })
         .catch(err => {
-            res.status(400).send({ err: err })
+            return res.status(400).send({ err: err })
         })
+    })
+    .catch(err => {
+        return res.status(400).send({ err: err })
+    })
   },
   
 }
