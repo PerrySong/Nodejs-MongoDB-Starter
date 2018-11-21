@@ -32,7 +32,6 @@ class SignIn extends Component {
    * @param values 
    */
   onSubmit(values) {
-    console.log(values);
     this.props.login(values, () => {
       this.props.history.push("/");
     });

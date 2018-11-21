@@ -16,8 +16,8 @@ class Userpage extends Component {
 
     render() {
         const user = this.props.post;
-        console.log("Check")
         console.log(user);
+
         if (!user) {
             return (
                 <div> 
@@ -28,6 +28,7 @@ class Userpage extends Component {
         return (
             <div>
                 <li><Link to="/"> Back to Homepage </Link></li>
+                <h2></h2>
                 <Repos data={user}/>
             </div>
         );

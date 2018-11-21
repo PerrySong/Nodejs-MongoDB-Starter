@@ -1,8 +1,8 @@
 
 .App {
   height: 100vh;
-  width: 200vh;
   display: flex;
+  color: white;
 }
 
 .App__Aside {
@@ -11,10 +11,11 @@
 }
 
 .App__Form {
-  width: 100%;
+  width: 50%;
   background-color: #2e4158;
   padding: 25px 40px;
   overflow: auto;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .PageSwitcher {
@@ -33,6 +34,7 @@
   outline: none;
   display: inline-block;
   text-decoration: none;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .PageSwitcher__Item--Active {
@@ -43,20 +45,24 @@
 .PageSwitcher__Item:first-child {
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 .PageSwitcher__Item:last-child {
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .FormCenter {
   margin-bottom: 100px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .FormTitle {
   color: #707c8b;
   font-weight: 300;
   margin-bottom: 50px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .FormTitle__Link {
@@ -66,6 +72,7 @@
   font-size: 1.7em;
   margin: 0 10px;
   padding-bottom: 5px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .FormTitle__Link:first-child {
@@ -98,6 +105,7 @@
   font-weight: 300;
   padding-bottom: 10px;
   margin-top: 10px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .FormField__Input::placeholder {
@@ -121,11 +129,13 @@
   display: inline-block;
   border-bottom: 1.5px solid #225e62;
   padding-bottom: 5px;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .FormField__CheckboxLabel {
   color: #646f7d;
   font-size: 0.6em;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .FormField__Checkbox {
@@ -140,4 +150,5 @@
   display: inline-block;
   padding-bottom: 2px;
   margin-left: 5px;
+  font-family: 'Nunito Sans', sans-serif;
 }

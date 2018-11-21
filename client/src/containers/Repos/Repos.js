@@ -11,11 +11,13 @@ const Repo_Information = ({ data }) => {
 
   return (
     <div className="container">
+      <h2>{data.username}</h2>
       <span>
         <Grid container spacing={24}>
           {_.map(data.repos, repo => {
             return (
-              <Repo
+              <Repo 
+                key={repo.name}
                 name={repo.name}
               />
             );
