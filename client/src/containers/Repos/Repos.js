@@ -11,7 +11,6 @@ const Repo_Information = ({ data }) => {
 
   return (
     <div className="container">
-      <h2>{data.username}</h2>
       <span>
         <Grid container spacing={24}>
           {_.map(data.repos, repo => {
@@ -19,6 +18,7 @@ const Repo_Information = ({ data }) => {
               <Repo 
                 key={repo.name}
                 name={repo.name}
+                link={repo.html_url}
               />
             );
           })}

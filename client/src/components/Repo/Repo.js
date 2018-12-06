@@ -27,7 +27,7 @@ const styles = theme => ({
     textItems: 'left'
   },
     card: {
-    maxWidth: 400,
+    maxWidth: 300,
   },
   media: {
     height: 70,
@@ -95,23 +95,11 @@ class Repo extends Component {
               })}
             </div>
           }
-          {this.props.image ?
             <CardMedia
               className={classes.media}
-              image={this.props.image}
-              title=""
-            /> :
-            <CardMedia
-              className={classes.media}
-              image="https://imgur.com/a/v5n2NRU"
-              title=""
-            /> 
-        }
-          <CardContent>
-            <Typography component="p">
-              {this.props.desc}
-            </Typography>
-          </CardContent>
+              image="http://stemgeeks.org/wp-content/uploads/2017/04/How-to-Build-a-Coding-Project.jpeg"
+            />
+
           <CardActions className={classes.actions} disableActionSpacing>
             <IconButton aria-label="Add to favorites">
               <FavoriteIcon />
@@ -134,6 +122,7 @@ class Repo extends Component {
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
+
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
               {this.props.highlights && 
