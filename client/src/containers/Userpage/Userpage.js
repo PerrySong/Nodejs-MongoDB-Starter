@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../actions/index';
 import Repos from '../Repos';
+import About from '../../components/About';
+import Profile_Menu from '../../components/ProfileMenu';
 import _ from 'lodash';
 
 class Userpage extends Component {
@@ -12,6 +14,11 @@ class Userpage extends Component {
         // console.log(this.props.match.params); //{userid: "user-405wf8ujokteaed"}
         const { userId } = this.props.match.params;
         this.props.getUser(userId);
+
+    }
+
+    toHomepage = () => {
+        <Link to="/"> Back to Homepage </Link>
     }
 
     render() {
@@ -27,8 +34,9 @@ class Userpage extends Component {
         }
         return (
             <div>
-                <li><Link to="/"> Back to Homepage </Link></li>
-                <h2></h2>
+                <button onClick={this.toHomepage} type="button" className="btn btn-primary"> Back to Homepage </button>
+                <About data={user}/>
+                <Profile_Menu/>
                 <Repos data={user}/>
             </div>
         );
